@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load custom_filters %}
+
+
+
+
+{% block title %}My Cart{% endblock %}
+
+{% block content %}
+ <div class="container mx-auto p-6">
+  <h1 class="text-2xl font-bold mb-6">My Cart</h1>
+
+  {% if cart_items %}
+  <div class="flex flex-col gap-4">
+    {% for item in cart_items %}
+    <div class="flex flex-col md:flex-row bg-white p-4 rounded shadow-sm hover:shadow-md items-center md:items-start">
+      
+      <!-- Product Image -->
+      <img src="{{ item.product.img }}" alt="{{ item.product.title }}" class="w-32 h-32 object-contain mb-3 md:mb-0 md:mr-6">
+
+      <!-- Product Info -->
+      <div class="flex-1">
+        <h2 class="text-lg font-semibold line-clamp-2">{{ item.product.title }}</h2>
+        <p class="text-sm text-gray-500">Brand: {{ item.product.brand }}</p>
+        <div class="mt-2 text-lg font-bold">₹{{ item.product.price }}</div>
+        <div class="text-sm text-green-700">{{ item.product.offer }}% off</div>
+      </div>
+
+      <!-- Quantity & Actions -->
+      <div class="flex flex-col items-start md:items-end mt-4 md:mt-0 md:ml-6">
+        <label class="text-sm mb-1">Quantity</label>
+        <input type="number" min="1" value="{{ item.quantity }}" class="w-16 border rounded px-2 py-1 mb-2 quantity" data-id="{{ item.id }} ">
+        <button class="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600 remove" data-id="{{ item.id }}">Remove</button>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Checkout Summary -->
+  <div class="mt-8 p-4 bg-white rounded shadow-sm">
+    <h2 class="text-xl font-bold mb-4">Price Details</h2>
+    <div class="flex justify-between mb-2">
+      <span>Price ({{ cart_items|length }} items)</span>
+     <span>₹{% for item in cart_items %}{{ item.product.price|multiply:item.quantity }} {% if not forloop.last %}+ {% endif %}{% endfor %}</span> 
+    </div>
+    <div class="flex justify-between mb-2">
+      <span>Discount</span>
+      <span class="text-green-700">{{ item.product.offer }}</span>
+    </div>
+    <div class="flex justify-between font-bold text-lg mt-4 border-t pt-2">
+      <span>Total Amount</span>
+      <span>₹{% for item in cart_items %}{{ item.product.price|multiply:item.quantity }} {% if not forloop.last %}+ {% endif %}{% endfor %}</span>
+    </div>
+    <button class="mt-4 w-full bg-fkblue text-white px-4 py-2 rounded hover:bg-blue-600">Proceed to Checkout</button>
+  </div>
+
+  {% else %}
+  <p class="text-center text-gray-500 mt-10">Your cart is empty.</p>
+  {% endif %} 
+ </div> 
+
+{% endblock %}

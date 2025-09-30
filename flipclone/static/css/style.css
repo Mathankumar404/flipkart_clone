@@ -1,0 +1,7 @@
+.clicked{
+  opacity: 0.5 !important;
+  transition: opacity 0.3s ease !important;
+}
+.add-btn{
+    background-color: red !important; 
+}

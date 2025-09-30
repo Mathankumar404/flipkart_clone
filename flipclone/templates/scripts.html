@@ -1,0 +1,102 @@
+  
+{% block scripts %}
+ <script>
+     document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll(".product-card").forEach(card => {
+        card.addEventListener("click", function() {
+          const productid = this.getAttribute("data-id");
+          console.log("Clicked product:", productid);
+          window.location.href = `/productDetail${productid}/`;
+        });
+      });
+    });
+
+  document.querySelectorAll('.product-card').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const article = this.closest('.product-card'); // get the parent article
+      article.classList.add('clicked');
+    });
+  });
+
+  document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".remove").forEach(product => {
+    product.addEventListener("click", () => {
+      const product_id = product.getAttribute("data-id");
+
+      fetch("/cartitems/remove_product/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": getCookie("csrftoken")
+        },
+        body: JSON.stringify({ product_id: product_id })  // must be JSON
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          console.log("Removed!", data);
+          location.reload();
+        } else {
+          console.error("Failed", data);
+        }
+      });
+    });
+  });
+});
+
+// CSRF helper
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== "") {
+    const cookies = document.cookie.split(";");
+    for (let cookie of cookies) {
+      cookie = cookie.trim();
+      if (cookie.startsWith(name + "=")) {
+        cookieValue = decodeURIComponent(cookie.slice(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
+
+{% comment %} document.addEventListener("DOMContentLoaded", () => {
+  const searchInput = document.getElementById("search");
+  const searchBtn = document.querySelector("button"); // your search button
+
+  // Trigger search on Enter key
+  searchInput.addEventListener("keyup", (event) => {
+    if (event.key === "Enter") {
+      doSearch(searchInput.value.trim());
+    }
+  });
+
+  // Trigger search on button click
+  searchBtn.addEventListener("click", () => {
+    doSearch(searchInput.value.trim());
+  });
+
+  function doSearch(query) {
+    if (!query) {
+      console.log("No input");
+      return;
+    }
+    console.log("Searching for:", query);
+
+    fetch("/api/search/", {
+      method: "POST",
+      headers: { 
+        "Content-Type": "application/json",
+        "X-CSRFToken": getCookie("csrftoken") 
+  },
+      body: JSON.stringify({ query: query })
+    })
+    .then(res => res.json())
+    .then(data => console.log(data))
+    .catch(err => console.error(err));
+  }
+});  {% endcomment %}
+
+
+  </script>
+{% endblock %}

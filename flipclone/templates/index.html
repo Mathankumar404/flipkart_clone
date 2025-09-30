@@ -1,0 +1,126 @@
+
+  <!-- Navigation bar -->
+   {% extends "base.html" %}
+
+{% block title %}Home | FlipClone{% endblock %}
+
+{% block content %}
+  <nav class="bg-white border-t border-b">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <ul class="flex gap-6 py-2 text-sm overflow-auto">
+        <li class="py-2 px-3 hover:bg-gray-100 rounded">Electronics</li>
+        <li class="py-2 px-3 hover:bg-gray-100 rounded">Mobiles</li>
+        <li class="py-2 px-3 hover:bg-gray-100 rounded">Fashion</li>
+        <li class="py-2 px-3 hover:bg-gray-100 rounded">Home</li>
+        <li class="py-2 px-3 hover:bg-gray-100 rounded">Appliances</li>
+        <li class="py-2 px-3 hover:bg-gray-100 rounded">Grocery</li>
+        <li class="py-2 px-3 hover:bg-gray-100 rounded">Toys</li>
+        <li class="py-2 px-3 hover:bg-gray-100 rounded">Offers</li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero + Deals -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+      <!-- Left: Sidebar filters -->
+      <aside class="col-span-1">
+        <div class="bg-white p-4 rounded shadow-sm">
+          <h3 class="font-semibold mb-3">Filters</h3>
+          <div class="mb-4">
+            <h4 class="text-sm font-medium mb-2">Category</h4>
+            <ul class="text-sm space-y-1">
+              <li><label class="inline-flex items-center"><input type="checkbox" class="mr-2"> Mobiles</label></li>
+              <li><label class="inline-flex items-center"><input type="checkbox" class="mr-2"> Laptops</label></li>
+              <li><label class="inline-flex items-center"><input type="checkbox" class="mr-2"> Accessories</label></li>
+            </ul>
+          </div>
+          <div class="mb-4">
+            <h4 class="text-sm font-medium mb-2">Price</h4>
+            <div class="flex items-center gap-2">
+              <input class="w-full border rounded px-2 py-1" placeholder="Min" />
+              <input class="w-full border rounded px-2 py-1" placeholder="Max" />
+            </div>
+          </div>
+          <button class="w-full bg-fkblue text-white py-2 rounded">Apply</button>
+        </div>
+
+        <div class="mt-4 bg-white p-4 rounded shadow-sm">
+          <h3 class="font-semibold mb-3">Top Categories</h3>
+          <div class="grid grid-cols-2 gap-3 text-sm">
+            <div class="p-2 border rounded">Smartphones</div>
+            <div class="p-2 border rounded">TVs</div>
+            <div class="p-2 border rounded">Headphones</div>
+            <div class="p-2 border rounded">Cameras</div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Right: Main content -->
+      <section class="col-span-3">
+        <!-- Hero -->
+        <div class="bg-white rounded shadow-sm overflow-hidden">
+          <div class="flex flex-col lg:flex-row">
+            <div class="lg:w-2/3 p-6">
+              <h1 class="text-2xl font-bold mb-2">Big Saving Days</h1>
+              <p class="text-gray-600 mb-4">Best deals on electronics, fashion and home appliances.</p>
+              <div class="flex gap-3">
+                <a class="bg-fkblue text-white px-4 py-2 rounded">Shop Now</a>
+                <a class="border px-4 py-2 rounded">Explore</a>
+              </div>
+            </div>
+            <div class="lg:w-1/3 flex items-center justify-center p-6 bg-gradient-to-r from-fkblue/10 to-transparent">
+              <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=800&q=60" alt="hero" class="w-full max-w-md rounded" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Product grid header -->
+        <div class="mt-6 flex items-center justify-between">
+          <h2 class="text-lg font-semibold">Popular products</h2>
+          <div class="text-sm text-gray-600">Showing 1-24 of 5000 results</div>
+        </div>
+
+        <!-- Product grid -->
+        <div class="mt-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          <!-- Product card (repeat) -->
+          <!-- We'll create 8 sample cards -->
+          
+          <!-- Card start -->
+             {% for product in products %}
+          <article class="bg-white p-3 rounded shadow-sm hover:shadow-md product-card" data-id="{{ product.id }}"id="productList">
+            <img src="{{product.img}}" alt="product" class="w-full h-44 object-contain mb-3" />
+            <h3 class="text-sm font-medium line-clamp-2">{{ product.title }}</h3>
+            <p class="text-sm text-gray-500 mt-1">Brand: {{ product.brand }}</p>
+            <div class="mt-2 flex items-center justify-between">
+              <div>
+                <div class="text-lg font-semibold">₹{{product.price}}</div>
+                <div class="text-xs text-green-700">{{product.offer}}% off</div>
+              </div>
+              <a href="{% url 'add_to_cart' product.id %}"> 
+              <button class="bg-fkblue text-white px-3 py-1 rounded text-sm add-btn" >
+               Add
+           </button>
+           </a>
+            </div>
+          </article>
+
+          {% endfor %}
+        </div>
+       
+        <!-- Pagination -->
+        <div class="mt-6 flex items-center justify-center">
+          <nav class="inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
+            <a class="px-3 py-1 bg-white border">Prev</a>
+            <a class="px-3 py-1 bg-white border">1</a>
+            <a class="px-3 py-1 bg-white border">2</a>
+            <a class="px-3 py-1 bg-white border">Next</a>
+          </nav>
+        </div>
+
+      </section>
+    </div>
+  </main>
+  {% endblock %}
+
+  

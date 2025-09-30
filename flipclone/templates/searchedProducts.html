@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block searchedproducts %}
+  {% if products %}
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-10">
+      {% for p in products %}
+      {% comment %} <a href="{% url 'detail' p.id %}"> {% endcomment %}
+       <article class="bg-white p-3 rounded shadow hover:shadow-md product-card" data-id="{{ p.id }}">
+        {% load static %}
+<img src="{{ p.img }}" alt="{{ p.title }}" class="w-full h-44 object-contain mb-3" />
+          <h3 class="text-sm font-medium line-clamp-2">{{ p.title }}</h3>
+          <p class="text-sm text-gray-500 mt-1">Brand: {{ p.brand }}</p>
+          <div class="mt-2 flex items-center justify-between">
+            <div>
+              <div class="text-lg font-semibold">₹{{ p.price }}</div>
+              <div class="text-xs text-green-700">{{ p.offer }}% off</div>
+            </div>
+            <a href="{% url 'add_to_cart' p.id %}">
+              <button class="bg-fkblue text-white px-3 py-1 rounded text-sm add-btn" >Add</button>
+            </a>
+          </div>
+        </article> 
+      {% comment %} </a> {% endcomment %}
+      {% endfor %}
+    
+    </div>
+  {% else %}
+    <p class="text-gray-500">No products found for "{{ query }}"</p>
+  {% endif %}
+ 
+{% endblock searchedproducts %}
+
