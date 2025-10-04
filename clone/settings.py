@@ -26,7 +26,8 @@ SECRET_KEY = 'django-insecure-i=_-ld$-ru0n1n*irz1xq%cdsmqw%7b0xr(=@!kd#e#bfq9e8h
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["flipkart-clone-hfb5.onrender.com", "localhost", "127.0.0.1"]
+
 
 
 # Application definition
