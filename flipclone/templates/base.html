@@ -5,24 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{% block title %}Flipkart{% endblock %}</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  {% load static %}
+{% load static %}
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
 <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}" />
 
-  <script>
-    // Optional Tailwind config for custom colors
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            fkblue: '#2874f0',
-            fkbg: '#f1f3f6',
-            fkgreen: '#388e3c'
-          }
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          fkblue: '#2874f0',
+          fkbg: '#f1f3f6',
+          fkgreen: '#388e3c'
         }
       }
     }
-  </script>
+  }
+</script>
 
   <style>
     /* small custom css to complement tailwind */
@@ -35,14 +34,13 @@
   <!-- Header -->
 
         {% include "header.html" %} 
-       
    {% block content %}{% endblock %} 
    {% block searchedproducts %}{% endblock %}
+    {% comment %} {% block login %}{% endblock %} {% endcomment %}
    {% include "footer.html" %}   <!-- Always there -->
-
-  
+   
     {% include "scripts.html" %}  
-
+    
    
 
   <!-- ✅ page-specific scripts -->

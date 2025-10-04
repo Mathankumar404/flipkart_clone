@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'clone.wsgi.application'
 
 DATABASES = {
     
- 'default': dj_database_url.parse('postgresql://neondb_owner:npg_xZ9Mt3sDbKqT@ep-broad-flower-ad5qq8ki-pooler.c-2.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require')
+ 'default': dj_database_url.parse('postgresql://neondb_owner:npg_XCUTDM9YtZV5@ep-silent-wildflower-adbc050z-pooler.c-2.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require')
 
   
 }
@@ -126,3 +126,5 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
